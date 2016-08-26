@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  h1= title
+  p=JSON.stringify(empleado)
+  form(action='',method='post')
+    div
+      label(for='name') Nombre:
+      input(type='text', name='name', id='name', placeholder='Nombre...', value=empleado.name)
+    div
+    div
+      label(for='lastnamename') Apellido:
+      input(type='text', name='lastname', id='lastname', placeholder='Apellido...', value=empleado.lastname)
+    div
+    div
+      label(for='email') E-Mail:
+      input(type='text', name='email', id='email', placeholder='E-Mail...', value=empleado.email)
+    div
+    div
+      label(for='password') Password:
+      input(type='text', name='pasword', id='password', placeholder='Password...', value=empleado.password)
+    div
+    div
+      label(for='confirm-password') Confirm:
+      input(type='text', name='confirm-password', id='confirm-password', placeholder='Confirmacion password...', value=empleado.password)
+    div
+      input(type='submit', value='Save')
+  style.
+form label { min-width: 80px; display: inline-block; }
+form > div { padding: 5px; }

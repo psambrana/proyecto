@@ -6,11 +6,16 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session')
+var flash = require('connect-flash');
 
 var routes = require('./routes/index');
 var users = require('./routes/user');
+var mongoose = require('mongoose');
 
-var app = express();
+mongoose.connect('mongodb://localhost/proyecto');
+
+var app = exports.app = express();
 
 var env = process.env.NODE_ENV || 'development';
 app.locals.ENV = env;
@@ -29,9 +34,13 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret: 'supersecret', saveUninitialized: true, resave: true}));
+app.use(flash());
 
 app.use('/', routes);
 app.use('/users', users);
+
+require('./routes/main.js');
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {

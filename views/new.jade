@@ -1,0 +1,29 @@
+extends layout
+
+block content
+  h1= title
+  form(action='',method='post')
+    div
+      label(for='name') Nombre:
+      input(type='text', name='name', id='name', placeholder='Nombre...')
+    div
+    div
+      label(for='lastnamename') Apellido:
+      input(type='text', name='lastname', id='lastname', placeholder='Apellido...')
+    div
+    div
+      label(for='email') E-Mail:
+      input(type='text', name='email', id='email', placeholder='E-Mail...')
+    div
+    div
+      label(for='password') Password:
+      input(type='text', name='password', id='password', placeholder='Password...')
+    div
+    div
+      label(for='confirm-password') Confirm:
+      input(type='text', name='confirm-password', id='confirm-password', placeholder='Confirmacion password...')
+    div
+      input(type='submit', value='Save')
+  style.
+form label { min-width: 80px; display: inline-block; }
+form > div { padding: 5px; }
