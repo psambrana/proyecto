@@ -1,5 +1,16 @@
 var app = module.parent.exports.app;
+var passport = module.parent.exports.passport;
 var Empleado = require('../models/empleados.js');
+var Admins = require('../models/admins.js');
+
+app.get('/admin', function (req, res) {
+    res.render('admin', {title: 'Login'});
+});
+
+app.post('/admin', passport.authenticate('AdminLogin',
+        {successRedirect: '/panel/employees',
+            failureRedirect: '/badlogin',
+            failureFlash: true}));
 
 app.get('/panel/employees', function (req, res) {
     var msg = req.flash('message');
