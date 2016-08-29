@@ -3,6 +3,14 @@ var passport = module.parent.exports.passport;
 var Empleado = require('../models/empleados.js');
 var Admins = require('../models/admins.js');
 
+app.get('/', function(req, res){
+   res.redirect('/busqueda'); 
+});
+
+app.get('/busqueda', function (req, res) {
+    res.render('busqueda', {title: 'Buscador empleados'});
+});
+
 app.get('/admin', function (req, res) {
     res.render('admin', {title: 'Login'});
 });
@@ -20,21 +28,37 @@ app.get('/panel/employees', function (req, res) {
 });
 
 app.get('/panel/employees/new', function (req, res) {
-    req.flash('message', 'You visited /new');
-    res.render('new', {title: 'New'});
+    res.render('new', {title: 'Alta empleado'});
 });
 
 app.post('/panel/employees/new', function (req, res) {
     console.log(req.body);
-    var p = new Empleado({name: req.body.name, lastname: req.body.lastname, email: req.body.email, password: req.body.password});
-    console.log(p);
-    p.save(function (err, doc) {
-        if (!err) {
-            res.redirect('/panel/employees');
-        } else {
-            res.end(err);
-        }
-    });
+    var emailStr = req.body.email;
+    var pass = req.body.password;
+    var confirm = req.body.confirm;
+
+    console.log("Pass: " + pass + " Confirm: " + confirm);
+
+    if (!emailStr.includes('@') || !emailStr.includes(".com")) {
+        req.flash('message', 'E-Mail Incorrecto');
+        var msg = req.flash('message');
+        res.render('new', {title: 'New', flashmsg: msg});
+    } else if (pass === confirm) {
+        var p = new Empleado({name: req.body.name, lastname: req.body.lastname, email: req.body.email, password: req.body.password});
+        console.log(p);
+        p.save(function (err, doc) {
+            if (!err) {
+                req.flash('message', 'Empleado creado correctamente.');
+                res.redirect('/panel/employees');
+            } else {
+                res.end(err);
+            }
+        });
+    } else {
+        req.flash('message', 'Password distintos');
+        var msg = req.flash('message');
+        res.render('new', {title: 'Alta Empleado', flashmsg: msg});
+    }
 });
 
 app.get('/panel/employees/delete/:id', function (req, res) {
@@ -49,10 +73,9 @@ app.get('/panel/employees/delete/:id', function (req, res) {
 });
 
 app.get('/panel/employees/edit/:id', function (req, res) {
-    req.flash('message', 'You visited /edit');
     Empleado.findOne({_id: req.params.id}, function (err, doc) {
         if (!err) {
-            res.render('edit', {title: 'Edit', empleado: doc});
+            res.render('edit', {title: 'Editar Empleado', empleado: doc});
         } else {
             res.end(err);
         }
@@ -68,6 +91,7 @@ app.post('/panel/employees/edit/:id', function (req, res) {
             doc.password = req.body.password;
             doc.save(function (err, doc) {
                 if (!err) {
+                    req.flash('message', 'Empleado editado correctamente');
                     res.redirect('/panel/employees');
                 } else {
                     res.end(err);
@@ -77,4 +101,24 @@ app.post('/panel/employees/edit/:id', function (req, res) {
             res.end(err);
         }
     });
+});
+
+app.get('/employee/search/:id', function (req, res) {
+    Empleado.find({}, function (err, docs) {
+        var key = req.params.id.toString();
+        var resultados = [];
+        docs.forEach(function (v, i) {
+            if ((v.name.toLowerCase().includes(key.toLowerCase())) ||
+                    (v.lastname.toLowerCase().includes(key.toLowerCase()))) {
+                resultados.push({name: v.name, lastname: v.lastname, email: v.email});
+            }
+
+        });
+        res.render('empleados', {title: 'Lista Empleados', persons: resultados});
+    });
+});
+
+app.get('*', function (req, res) {
+    console.error("Controlador error");
+    res.render('error', {message: "Página no encontrada."});
 });

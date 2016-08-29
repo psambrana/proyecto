@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  .container
+    .row
+      .col-md-6.col-md-offset-3
+        h1=title
+    .row
+      .col-md-4.col-md-offset-3
+        form.search-form(action='')
+          .form-group.has-feedback
+            label.sr-only(for='search') Search
+            input#search.form-control(type='text', name='search', placeholder='search')
+            span.glyphicon.glyphicon-search.form-control-feedback

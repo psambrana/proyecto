@@ -6,8 +6,37 @@ html(lang='en')
     title= title
     block css
       link(rel='stylesheet', href='/css/style.css')
+      // Bootstrap
+      link(href='css/bootstrap.min.css', rel='stylesheet')
     block js
       if ENV_DEVELOPMENT
         script(src='http://localhost:35729/livereload.js')
+      script(type='text/javascript').
+        foo = true;
+        bar = function () {};
+        if (foo) {
+          bar(1 + 5)
+        }  
   body
+      .container-fluid
+        // Second navbar for profile settings
+        nav.navbar.navbar-inverse
+          .container
+            // Brand and toggle get grouped for better mobile display
+            .navbar-header
+              a.navbar-brand(href='/') Home
+            // Collect the nav links, forms, and other content for toggling
+            #navbar-collapse-4.collapse.navbar-collapse
+              ul.nav.navbar-nav.navbar-right
+                li
+                  a(href='/admin') Admin
+                li
+                  a(href='/panel/employees') Lista Empleados
+                li
+                  a(href='/logout') Log Out
+                li
+            // /.navbar-collapse
+          // /.container
+        // /.navbar
+      // /.container-fluid
     block content

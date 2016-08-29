@@ -17,7 +17,21 @@ var fixtures = require('mongoose-fixtures');
 
 mongoose.connect('mongodb://localhost/proyecto');
 
+require('./models/admins.js');
+require('./models/empleados');
 
+fixtures.load({
+    Admins: [
+        {email: "admin@admin.com", password: "123456"}
+    ]
+});
+fixtures.load({
+    Empleados: [
+        {name: "Pablo", lastname: "Sambrana", email: "pablosambrana@gmail.com", password: "incorrecta"},
+        {name: "Cristian", lastname: "Cortez", email: "cristiancortes@mail.com", password: "123456"},
+        {name: "John", lastname: "Doe", email: "jd@hotmail.com", password: "654321"}
+    ]
+});
 var app = exports.app = express();
 
 var env = process.env.NODE_ENV || 'development';
@@ -33,7 +47,7 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-  extended: true
+    extended: true
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -50,7 +64,7 @@ app.use('/users', users);
 require('./routes/main.js');
 
 /// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -62,7 +76,7 @@ app.use(function(req, res, next) {
 // will print stacktrace
 
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
+    app.use(function (err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -74,7 +88,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,

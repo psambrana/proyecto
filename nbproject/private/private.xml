@@ -3,14 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/dev/src/node/proyecto/fixtures/admins.js</file>
-            <file>file:/C:/dev/src/node/proyecto/fixtures/empleados.js</file>
-            <file>file:/C:/dev/src/node/proyecto/auth/local-strategy.js</file>
-            <file>file:/C:/dev/src/node/proyecto/models/admins.js</file>
+            <file>file:/C:/dev/src/node/proyecto/models/empleados.js</file>
+            <file>file:/C:/dev/src/node/proyecto/views/new.jade</file>
+            <file>file:/C:/dev/src/node/proyecto/views/edit.jade</file>
+            <file>file:/C:/dev/src/node/proyecto/views/busqueda.jade</file>
             <file>file:/C:/dev/src/node/proyecto/test/admins-test.js</file>
             <file>file:/C:/dev/src/node/proyecto/app.js</file>
             <file>file:/C:/dev/src/node/proyecto/test/empleados-test.js</file>
             <file>file:/C:/dev/src/node/proyecto/routes/main.js</file>
+            <file>file:/C:/dev/src/node/proyecto/views/empleados.jade</file>
         </group>
     </open-files>
 </project-private>
