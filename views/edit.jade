@@ -2,21 +2,25 @@ extends layout
 
 block content
   h1= title
-  p=JSON.stringify(empleado)
-  form(action='',method='post')
-    div
-      label(for='name') Nombre:
-      input(type='text', name='name', id='name', placeholder='Nombre...', value=empleado.name)
-    div
-    div
-      label(for='lastnamename') Apellido:
-      input(type='text', name='lastname', id='lastname', placeholder='Apellido...', value=empleado.lastname)
-    div
-    div
-      label(for='email') E-Mail:
-      input(type='text', name='email', id='email', placeholder='E-Mail...', value=empleado.email)
-    div
-      input(type='submit', value='Guardar')
-  style.
-form label { min-width: 80px; display: inline-block; }
-form > div { padding: 5px; }
+  .container
+    .row.centered-form
+      .col-xs-12.col-sm-8.col-md-4.col-sm-offset-2.col-md-offset-4
+        .panel.panel-default
+          .panel-heading
+            h3.panel-title
+              | Ingrese el nuevo empleado
+          .panel-body
+            form(action='',method='post')
+              .row
+                .col-xs-6.col-sm-6.col-md-6
+                  .form-group
+                    label(for='name') Nombre:
+                    input(type='text', name='name', id='name', placeholder='Nombre...', value=empleado.name)
+                .col-xs-6.col-sm-6.col-md-6
+                  .form-group
+                    label(for='lastnamename') Apellido:
+                    input(type='text', name='lastname', id='lastname', placeholder='Apellido...', value=empleado.lastname)
+              .form-group
+                label(for='email') E-Mail:
+                input(type='text', name='email', id='email', placeholder='E-Mail...', value=empleado.email)
+              input.btn.btn-info.btn-block(type='submit', value='Crear')

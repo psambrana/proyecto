@@ -1,30 +1,31 @@
 extends layout
 
 block content
+  h1= title
   .container
-  .row.col-md-6.col-md-offset-2.custyle
-    table.table.table-striped.custab
-      thead
-        a.btn.btn-primary.btn-xs.pull-right(href='/panel/employees/new')
-          b +
-          |  Nuevo empleado
+    .row.col-md-6.col-md-offset-2.custyle
+      table.table.table-striped.custab
+        thead
+          a.btn.btn-primary.btn-xs.pull-right(href='/panel/employees/new')
+            b +
+            |  Nuevo empleado
+          tr
+            th ID
+            th Nombre
+            th Apellido
+            th E-Mail
+            th Options          
+        - persons.forEach(function(v,i){
         tr
-          th ID
-          th Nombre
-          th Apellido
-          th E-Mail
-          th Options          
-      - persons.forEach(function(v,i){
-      tr
-        td=i
-        td=v.name
-        td=v.lastname
-        td=v.email
-        td.text-center
-          a.btn.btn-info.btn-xs(href="/panel/employees/edit/"+v._id)
-            span.glyphicon.glyphicon-edit
-            |  Edit
-          a.btn.btn-danger.btn-xs(href="/panel/employees/delete/"+v._id)
-            span.glyphicon.glyphicon-remove
-            |  Del
-      - });    
+          td=i
+          td=v.name
+          td=v.lastname
+          td=v.email
+          td.text-center
+            a.btn.btn-info.btn-xs(href="/panel/employees/edit/"+v._id)
+              span.glyphicon.glyphicon-edit
+              |  Edit
+            a.btn.btn-danger.btn-xs(href="/panel/employees/delete/"+v._id)
+              span.glyphicon.glyphicon-remove
+              |  Del
+        - });    
